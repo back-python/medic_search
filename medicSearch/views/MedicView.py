@@ -1,5 +1,6 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 from medicSearch.models import Profile
+from django.db.models import Q
 
 def list_medic_view(request):
     name = request.GET.get('name') 
@@ -12,21 +13,24 @@ def list_medic_view(request):
     if name is not None and name != '': 
         # user__first_name__contains => Está procurando dentro da Foreing Key User de Profile a tabela
         # first name sem fazer a distinção, entre letras maiúsculas e minúsculas
-        medics = medics.filter(user__first_name__contains=name) 
+        medics = medics.filter(Q(user__first_name__contains=name) | Q(user__username__contains=name)) 
     
     if speciality is not None: 
         medics = medics.filter(specialties__id=speciality)
     
     if neighborhood is not None: 
-        medics = medics.filter(addresses__neighborhood=neighborhood)
+        medics = medics.filter(addresses__neighborhood__id=neighborhood)
 
     else:
         if city is not None: 
-            medics = medics.filter(addresses__neighborhood__city=city) 
+            medics = medics.filter(addresses__neighborhood__city__id=city) 
 
         elif state is not None: 
-            medics = medics.filter(addresses__neighborhood__city__state=state) 
+            medics = medics.filter(addresses__neighborhood__city__state__id=state) 
   
-    print(medics.all())
+    context = {
+        'medics':medics
+    }
 
-    return HttpResponse('Listagem de 1 ou mais médicos')
+    return render(request, template_name='medic/medics.html', context=context, status=200)
+
