@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from medicSearch.models import Profile
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 def list_medic_view(request):
     name = request.GET.get('name') 
@@ -26,10 +27,19 @@ def list_medic_view(request):
             medics = medics.filter(addresses__neighborhood__city__id=city) 
 
         elif state is not None: 
-            medics = medics.filter(addresses__neighborhood__city__state__id=state) 
+            medics = medics.filter(addresses__neighborhood__city__state__id=state)
+
+    if len(medics) > 0: 
+        paginator = Paginator(medics, 8)  
+        page = request.GET.get('page') 
+        medics = paginator.get_page(page) 
+  
+        get_copy = request.GET.copy() 
+        parameters = get_copy.pop('page', True) and get_copy.urlencode()
   
     context = {
-        'medics':medics
+        'medics':medics,
+        'parameters':parameters
     }
 
     return render(request, template_name='medic/medics.html', context=context, status=200)
