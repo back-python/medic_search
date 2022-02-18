@@ -1,4 +1,3 @@
-import email
 from django.shortcuts import render, redirect, get_object_or_404
 from medicSearch.models import Profile
 from medicSearch.forms.UserProfileForm import UserProfileForm, UserForm
@@ -33,10 +32,10 @@ def list_profile_view(request, id=None):
     
     return render(request, template_name='profile/profile.html', context=context, status=200)
 
-def edit_profile(request): 
-   def edit_profile(request):
+def edit_profile(request):
     profile = get_object_or_404(Profile, user=request.user)
     emailUnused = True
+    message = None
     
     if request.method == 'POST':
         profileForm = UserProfileForm(request.POST, request.FILES, instance=profile)
@@ -52,10 +51,20 @@ def edit_profile(request):
     if profileForm.is_valid() and userForm.is_valid() and emailUnused:
         profileForm.save()
         userForm.save()
-
-    context = { 
+        message = { 'type': 'success', 'text': 'Dados atualizados com sucesso' }
+    else:
+        if request.method == 'POST':
+            if emailUnused:
+                # Se o e-mail não está em uso mas o formulário tiver algum dado inválido.
+                message = { 'type': 'danger', 'text': 'Dados inválidos' }
+            else:  
+                # Se o e-mail que o usuário tentou usar já está em uso por outra pessoa.
+                message = { 'type': 'warning', 'text': 'E-mail já usado por outro usuário' }
+    
+    context = {
         'profileForm': profileForm,
-        'userForm':userForm
-    } 
-  
+        'userForm': userForm,
+        'message': message
+    }
+
     return render(request, template_name='user/profile.html', context=context, status=200)
