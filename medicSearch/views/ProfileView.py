@@ -1,6 +1,7 @@
+import email
 from django.shortcuts import render, redirect, get_object_or_404
 from medicSearch.models import Profile
-from medicSearch.forms.UserProfileForm import UserProfileForm
+from medicSearch.forms.UserProfileForm import UserProfileForm, UserForm
 from django.core.paginator import Paginator
   
 def list_profile_view(request, id=None): 
@@ -33,11 +34,28 @@ def list_profile_view(request, id=None):
     return render(request, template_name='profile/profile.html', context=context, status=200)
 
 def edit_profile(request): 
-    profile = get_object_or_404(Profile, user=request.user) 
-    profileForm = UserProfileForm(instance=profile) 
-  
+   def edit_profile(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    emailUnused = True
+    
+    if request.method == 'POST':
+        profileForm = UserProfileForm(request.POST, request.FILES, instance=profile)
+        userForm = UserForm(request.POST, instance=request.user)
+
+        # Verifica se o e-mail que o usuário está tentando utilizar em seu perfil já existe em outro perfil
+        verifyEmail = Profile.objects.filter(user__email=request.POST['email']).exclude(user__id=request.user.id).first()
+        emailUnused = verifyEmail is None
+    else:
+        profileForm = UserProfileForm(instance=profile)
+        userForm = UserForm(instance=request.user)
+
+    if profileForm.is_valid() and userForm.is_valid() and emailUnused:
+        profileForm.save()
+        userForm.save()
+
     context = { 
-        'profileForm': profileForm 
+        'profileForm': profileForm,
+        'userForm':userForm
     } 
   
     return render(request, template_name='user/profile.html', context=context, status=200)
