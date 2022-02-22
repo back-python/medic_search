@@ -79,4 +79,6 @@ def register_view(request):
         'link_text': 'Login',
         'link_href': '/login'
     }
+
     return render(request, template_name='auth/auth.html', context=context, status=200)
+    
