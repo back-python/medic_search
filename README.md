@@ -1,7 +1,7 @@
-# Construção de um sistema Web que faz a pesquisa de consultorio medicos mais proximos da minha localização
+# Busca Médico
 
 ![Lincença do projeto](	https://img.shields.io/github/license/robsonleal/pedroreceitas)
-![Bagde status desenvolvimento](https://img.shields.io/static/v1?label=status&message=EM%20DESENVOLVIMENTO&color=red)
+![Bagde status desenvolvimento](https://img.shields.io/static/v1?label=status&message=CONCLUÍDO&color=green)
 
 ## Índice
 
@@ -15,26 +15,39 @@
 
 ## Descrição do Projeto
 
-Consultar os medicos mais proximos da minha localização atual
+Aplicação web para consulta de médicos. 
+
+Ela permitirá que usuários consultem os médicos mais próximos de sua localidade ou uma localidade específica, podendo filtrá-los por nome, especialidade, estado, cidade e bairro do médico. 
+ 
+Veremos no Django como criar um painel administrativo para a aplicação, além da criação de telas HTML também usando a tecnologia de templates do Django.
 
 ## Funcionalidades e Demonstração da Aplicação
-- `Funcionalidade 1`: ;
-- `Funcionalidade 2`: ;
-- `Funcionalidade 3`: ;
-- `Funcionalidade 4`: ;
-- `Funcionalidade 5`: ;
+- `Funcionalidade 1`: Login de usuário cadastrado;
+- `Funcionalidade 2`: Cadastrado de novos usuários;
+- `Funcionalidade 3`: Busca por médicos cadastrados (por nome e outros filtros);
+- `Funcionalidade 4`: Adicionar/remover médicos dos favoritos;
+- `Funcionalidade 5`: Avaliar médico;
+- `Funcionalidade 6`: Editar perfil do usuário cadastrado;
 
-Aqui vai uma foto do projeto</br>
+Pagina de login da aplicação: </br>
+![Screenshot_20220223_163637](https://user-images.githubusercontent.com/27708175/155396054-9149e514-f0f2-438b-950b-bf53b8f95d30.png)
 
+Página de busca da aplicação: </br>
+![Screenshot_20220223_163706](https://user-images.githubusercontent.com/27708175/155396129-e07bdadf-e0d9-4a42-b81a-281e125f4a1a.png)
 
-Aqui vai uma foto do projeto</br>
+Página de perfil do usuário de está logado na aplicação: </br>
+![Screenshot_20220223_164301](https://user-images.githubusercontent.com/27708175/155396150-f806fb76-b62c-4a61-a181-a0154a2e5f3e.png)
 
+Página de edição do perfil do usuário que está logado na aplicação: </br>
+![Screenshot_20220223_164405](https://user-images.githubusercontent.com/27708175/155396195-855d40a1-b1e7-4195-909c-058e983e2990.png)
 
-Aqui vai uma foto do projeto</br>
-
+Página de perfil de um médico cadastrado na aplicação: </br>
+![Screenshot_20220223_164342](https://user-images.githubusercontent.com/27708175/155396159-10a625f7-3f71-4ae8-9375-338ecbc6f7b9.png)
 
 
 ## Acesso ao Projeto
+
+Deploy - https://dashboard.heroku.com/apps/medic-search
 
 ```console
 git clone git@github.com:robsonleal/medic_search.git
@@ -48,7 +61,6 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 - Abrir o endereço localhost:8000 no navegador de sua preferência;
-- Autenticação é os dados do super usuário que foi criado.
 
 ## Tecnologias utilizadas
 `Django 4`
