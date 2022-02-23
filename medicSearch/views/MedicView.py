@@ -16,7 +16,7 @@ def list_medic_view(request):
     if name is not None and name != '': 
         # user__first_name__contains => Está procurando dentro da Foreing Key User de Profile a tabela
         # first name sem fazer a distinção, entre letras maiúsculas e minúsculas
-        medics = medics.filter(Q(user__first_name__contains=name) | Q(user__username__contains=name)) 
+        medics = medics.filter(Q(user__first_name__contains=name) | Q(user__username__contains=name))
     
     if speciality is not None: 
         medics = medics.filter(specialties__id=speciality)
@@ -38,11 +38,16 @@ def list_medic_view(request):
   
         get_copy = request.GET.copy() 
         parameters = get_copy.pop('page', True) and get_copy.urlencode()
-  
+        print(parameters)
+
     context = {
         'medics':medics,
-        'parameters':parameters
     }
+
+    if medics:
+        # Passando valor do parâmetro somente se um médico for encontrado
+        parameters = {'parameters':parameters}
+        context.update(parameters)
 
     return render(request, template_name='medic/medics.html', context=context, status=200)
 
