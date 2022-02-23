@@ -102,3 +102,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = '/logout' 
   
 LOGOUT_REDIRECT_URL = '/login'
+
+import django_heroku
+django_heroku.settings(locals())
