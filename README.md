@@ -18,8 +18,6 @@
 Aplicação web para consulta de médicos. 
 
 Ela permitirá que usuários consultem os médicos mais próximos de sua localidade ou uma localidade específica, podendo filtrá-los por nome, especialidade, estado, cidade e bairro do médico. 
- 
-Veremos no Django como criar um painel administrativo para a aplicação, além da criação de telas HTML também usando a tecnologia de templates do Django.
 
 ## Funcionalidades e Demonstração da Aplicação
 - `Funcionalidade 1`: Login de usuário cadastrado;
