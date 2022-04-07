@@ -47,7 +47,7 @@ Página de perfil de um médico cadastrado na aplicação: </br>
 
 ## Acesso ao Projeto
 
-Deploy - https://dashboard.heroku.com/apps/medic-search
+Deploy - https://medic-search.herokuapp.com/
 
 ```console
 git clone git@github.com:robsonleal/medic_search.git
